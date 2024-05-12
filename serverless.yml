@@ -1,0 +1,22 @@
+org: alphajuliet
+app: genpwd
+service: genpwd-sls
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  api:
+    handler: index.handler
+    events:
+      - httpApi:
+          path: /
+          method: get
+  genpwd:
+    handler: src/genpwd.generate
+    events:
+      - httpApi:
+          path: /generate
+          method: get
