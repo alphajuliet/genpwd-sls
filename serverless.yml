@@ -5,7 +5,9 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs20.x
+  httpApi:
+    cors: true
 
 functions:
   api:
@@ -14,9 +16,15 @@ functions:
       - httpApi:
           path: /
           method: get
-  genpwd:
+  generate:
     handler: src/genpwd.generate
     events:
       - httpApi:
           path: /generate
+          method: get
+  generators:
+    handler: src/genpwd.generators
+    events:
+      - httpApi:
+          path: /generators
           method: get
