@@ -15,16 +15,16 @@ const v1 = G.WeightedList(
 const n = G.WeightedList(
   {"":5, "n":1});
 
-var randomWord = (strength = 0, opts = {}) => {
+const randomWord = (strength = 0, opts = {}) => {
 
   // puncF :: Map String Boolean -> (() -> String)
-  let puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF;
+  const puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF;
   // numF  :: Map String Boolean -> Integer -> (() -> String)
-  let numF  = n => opts["numbers"] ? G.randomNumericString(n) : G.emptyStringF;
+  const numF  = n => opts["numbers"] ? G.randomNumericString(n) : G.emptyStringF;
   // capF  :: Map String Boolean -> (() -> String) -> (() -> String)
-  let capF  = f => opts["capitals"] ? R.compose(G.capitalise, f) : f;
+  const capF  = f => opts["capitals"] ? R.compose(G.capitalise, f) : f;
 
-  let syll = [capF(c1), v1, n];
+  const syll = [capF(c1), v1, n];
 
   var f;
   switch (G.dice(4)) {
@@ -35,9 +35,8 @@ var randomWord = (strength = 0, opts = {}) => {
     default: f = [syll, syll, puncF]; break;
   }
 
-  let g = (G.dice(2) < 1) ? [f, numF(2)] : [numF(2), f];
-
-  let w = G.crunch(g); // Turn into a string
+  const g = (G.dice(2) < 1) ? [f, numF(2)] : [numF(2), f];
+  const w = G.crunch(g); // Turn into a string
 
   w = w.replace(/[Tt]i/, "chi");
   w = w.replace(/[Ss]i/, "shi");

@@ -43,7 +43,7 @@ const trMatrix = [
 
 // Return a random next letter, given the transition matrix
 // nextLetter :: [[Float]] -> [Char] -> Char -> Char
-let nextLetter = (tr_matrix, symbols, ltr) => {
+const nextLetter = (tr_matrix, symbols, ltr) => {
   const row_index = R.indexOf(ltr, symbols)
   const row = tr_matrix[row_index]
 
@@ -74,15 +74,15 @@ const randomWord = (strength = 0, opts = {}) => {
 
 
   // puncF :: Map String Boolean -> (() -> String)
-  let puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF
+  const puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF
   // numF  :: Map String Boolean -> Integer -> (() -> String)
-  let numF  = n => opts["numbers"] ? G.randomNumericString(n) : G.emptyStringF
+  const numF  = n => opts["numbers"] ? G.randomNumericString(n) : G.emptyStringF
   // capF  :: Map String Boolean -> (() -> String) -> (() -> String)
-  let capF  = f => opts["capitals"] ? R.compose(G.capitalise, f) : f
+  const capF  = f => opts["capitals"] ? R.compose(G.capitalise, f) : f
 
   // word :: Int -> String
   const word = () => {
-    let w = G.RandomList(R.slice(3, 29, allLetters))()
+    const w = G.RandomList(R.slice(3, 29, allLetters))()
     do {
       w = w + nextLetter(trMatrix, allLetters, R.last(w))
       w = R.replace(/ /g, '', w)  // Remove any spaces
@@ -90,7 +90,7 @@ const randomWord = (strength = 0, opts = {}) => {
     return R.join('-', R.splitEvery(6, w)) // Insert a hyphen after every 6 chars
   }
 
-  let f = (G.dice(2) < 1) ? 
+  const f = (G.dice(2) < 1) ? 
     [capF(word), puncF, numF(3)] :
     [numF(3), puncF, capF(word)]
 

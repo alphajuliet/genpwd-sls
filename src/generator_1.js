@@ -32,13 +32,13 @@ const v3 = G.WeightedList(
 var randomWord = (strength = 0, opts = {}) => {
 
   // puncF :: Map String Boolean -> (() -> String)
-  let puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF;
+  const puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF;
   // numF  :: Map String Boolean -> Integer -> (() -> String)
-  let numF  = n => opts["numbers"] ? G.randomNumericString(n) : G.emptyStringF;
+  const numF  = n => opts["numbers"] ? G.randomNumericString(n) : G.emptyStringF;
   // capF  :: Map String Boolean -> (() -> String) -> (() -> String)
-  let capF  = f => opts["capitals"] ? R.compose(G.capitalise, f) : f;
+  const capF  = f => opts["capitals"] ? R.compose(G.capitalise, f) : f;
 
-  let syll1 = [c1, v1, c2]; 
+  const syll1 = [c1, v1, c2]; 
 
   var f;
   switch (G.dice(8)) {
@@ -52,7 +52,7 @@ var randomWord = (strength = 0, opts = {}) => {
     case 7:  f = [c1, v1, capF(c1), v1, c1, v1, puncF]; break;
     default: f = [c1, v1, puncF, capF(c3), v3]; break;
   }
-  let w = (G.dice(2) < 1) ?  [f, numF(2)] : [numF(2), f];
+  const w = (G.dice(2) < 1) ?  [f, numF(2)] : [numF(2), f];
   return G.crunch(w);
 };
 

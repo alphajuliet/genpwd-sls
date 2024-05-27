@@ -31,7 +31,7 @@ const vs = G.WeightedList(
   {"a":1,"e":1,"i":1,"o":1});
 
 
-var randomWord = (strength = 0, opts = {}) => {
+const randomWord = (strength = 0, opts = {}) => {
 
   // puncF :: Map String Boolean -> (() -> String)
   let puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF;
@@ -51,7 +51,7 @@ var randomWord = (strength = 0, opts = {}) => {
     default: f = [capF(c), vm, c, vm, c, vm, ce]; break;
   }
 
-  let w = (G.dice(2) < 1) ? [f, puncF, numF(2)] : [numF(2), f, puncF];
+  const w = (G.dice(2) < 1) ? [f, puncF, numF(2)] : [numF(2), f, puncF];
   return G.crunch(w);
 };
 
