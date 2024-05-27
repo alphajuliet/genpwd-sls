@@ -60,7 +60,7 @@ const nextLetter = (tr_matrix, symbols, ltr) => {
 
 // Generate a random word of a minimum and maximum length
 const randomWord = (strength = 0, opts = {}) => {
-
+  let minchar;
   switch (strength) {
     case 0: 
       minChar = 6; break
@@ -72,7 +72,6 @@ const randomWord = (strength = 0, opts = {}) => {
       minChar = 6
   }
 
-
   // puncF :: Map String Boolean -> (() -> String)
   const puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF
   // numF  :: Map String Boolean -> Integer -> (() -> String)
@@ -82,7 +81,7 @@ const randomWord = (strength = 0, opts = {}) => {
 
   // word :: Int -> String
   const word = () => {
-    const w = G.RandomList(R.slice(3, 29, allLetters))()
+    let w = G.RandomList(R.slice(3, 29, allLetters))()
     do {
       w = w + nextLetter(trMatrix, allLetters, R.last(w))
       w = R.replace(/ /g, '', w)  // Remove any spaces

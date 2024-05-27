@@ -29,18 +29,16 @@ const v3 = G.WeightedList(
   {"a":5,"ao":1,"e":5,"ea":1,"ee":2,"eo":1,"i":2,"ia":2,"io":2,"o":5,
     "oa":2,"oo":2,"ow":2,"ua":1,"uo":1,"y":5});
 
-var randomWord = (strength = 0, opts = {}) => {
-
+const randomWord = (strength = 0, opts = {}) => {
   // puncF :: Map String Boolean -> (() -> String)
   const puncF = opts["punctuation"] ? G.RandomList(G.symbols) : G.emptyStringF;
   // numF  :: Map String Boolean -> Integer -> (() -> String)
   const numF  = n => opts["numbers"] ? G.randomNumericString(n) : G.emptyStringF;
   // capF  :: Map String Boolean -> (() -> String) -> (() -> String)
   const capF  = f => opts["capitals"] ? R.compose(G.capitalise, f) : f;
-
   const syll1 = [c1, v1, c2]; 
 
-  var f;
+  let f;
   switch (G.dice(8)) {
     case 0:  f = [syll1, puncF, capF(c2), v2, c3]; break;
     case 1:  f = [v1, capF(c1), puncF, v2, c3]; break;

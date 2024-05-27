@@ -36,7 +36,7 @@ const randomWord = (strength = 0, opts = {}) => {
   }
 
   const g = (G.dice(2) < 1) ? [f, numF(2)] : [numF(2), f];
-  const w = G.crunch(g); // Turn into a string
+  let w = G.crunch(g); // Turn into a string
 
   w = w.replace(/[Tt]i/, "chi");
   w = w.replace(/[Ss]i/, "shi");
